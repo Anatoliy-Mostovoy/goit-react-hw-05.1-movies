@@ -50,4 +50,9 @@ img {
 
 .FilmCardImg {
   margin-right: 20px;
+  outline: 1px solid grey;
+}
+
+.FilmInfoMark {
+  color: tomato;
 }

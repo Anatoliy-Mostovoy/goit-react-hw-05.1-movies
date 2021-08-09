@@ -27,3 +27,6 @@
 .CastItemContent {
   padding: 10px;
 }
+.CastItemContentTitle {
+  color: tomato;
+}

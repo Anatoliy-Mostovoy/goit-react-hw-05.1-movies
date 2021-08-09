@@ -1,9 +1,14 @@
 .Films {
   list-style: none;
 }
-
+.FilmsTitle {
+  color: tomato;
+  margin-bottom: 10px;
+}
 .FilmsItem {
   text-decoration: none;
   display: inline-block;
   margin: 3px;
+  color: black;
+  margin-bottom: 5px;
 }
