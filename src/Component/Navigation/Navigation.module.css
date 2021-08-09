@@ -1,9 +1,13 @@
 .Navigation {
   margin: 10px;
-  color: black;
+  font-size: larger;
+  color: whitesmoke;
   text-decoration: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  background-color: grey;
 }
 
 .NavigationActive {
-  color: red;
+  color: tomato;
 }

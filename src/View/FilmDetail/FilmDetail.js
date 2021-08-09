@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
-import { NavLink, useRouteMatch, Route } from 'react-router-dom';
+import { NavLink, useRouteMatch, Route, Switch } from 'react-router-dom';
 import s from './FilmDetail.module.css';
 import { CastView } from '../CastView/CastView';
+import { ReviewView } from '../ReviewView/ReviewView';
 
 export const FilmDetail = () => {
   const match = useRouteMatch();
   const params = useParams();
-  console.log(params.filmId);
   const [film, setFilm] = useState(null);
 
   useEffect(() => {
@@ -28,6 +28,7 @@ export const FilmDetail = () => {
         <div>
           <div className={s.FilmCard}>
             <img
+              className={s.FilmCardImg}
               src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
               alt="film"
             />
@@ -53,9 +54,28 @@ export const FilmDetail = () => {
           </div>
           <hr />
           <h3>Additional information</h3>
-          <NavLink to={`${match.url}/${film.id}`}>Cast</NavLink>
-          <Route path={`${match.path}/:castId`}>{film && <CastView />}</Route>
-          <p>Review</p>
+          <div className={s.FilmDetailNav}>
+            <NavLink
+              className={s.InformationCast}
+              activeClassName={s.FilmDetailNavActive}
+              to={`${match.url}/cast`}
+            >
+              Cast
+            </NavLink>
+            <NavLink
+              className={s.InformationReview}
+              activeClassName={s.FilmDetailNavActive}
+              to={`${match.url}/review`}
+            >
+              Review
+            </NavLink>
+          </div>
+          <Switch>
+            <Route path={`${match.path}/cast`}>{film && <CastView />}</Route>
+            <Route path={`${match.path}/review`}>
+              {film && <ReviewView />}
+            </Route>
+          </Switch>
         </div>
       )}
     </>
