@@ -1,0 +1,9 @@
+.Navigation {
+  margin: 10px;
+  color: black;
+  text-decoration: none;
+}
+
+.NavigationActive {
+  color: red;
+}

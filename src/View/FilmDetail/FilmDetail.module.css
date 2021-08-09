@@ -1,0 +1,19 @@
+.FilmCard {
+  display: flex;
+}
+
+.FilmInfo {
+  display: inline-block;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+  list-style: none;
+}
+img {
+  display: block;
+}
