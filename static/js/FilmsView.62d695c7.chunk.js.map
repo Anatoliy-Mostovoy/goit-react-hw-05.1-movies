@@ -1,0 +1,1 @@
+{"version":3,"sources":["View/FilmsView/FilmsView.js"],"names":["FilmsView"],"mappings":"+JAIeA,UAJG,WAChB,OAAO","file":"static/js/FilmsView.62d695c7.chunk.js","sourcesContent":["const FilmsView = () => {\n  return <h1>Films</h1>;\n};\n\nexport default FilmsView;\n"],"sourceRoot":""}
