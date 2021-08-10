@@ -1,11 +1,27 @@
-import React from 'react';
-import s from './App.module.css';
+import React, { lazy, Suspense } from 'react';
 import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
-import { Navigation } from './Component/Navigation/Navigation';
-import { HomeView } from './View/HomeView/HomeView';
-import { FilmsView } from './View/FilmsView/FilmsView';
-import { NotFoundView } from './View/NotFoundView/NotFoundView';
-import { FilmDetail } from './View/FilmDetail/FilmDetail';
+import s from './App.module.css';
+
+const Navigation = lazy(() =>
+  import(
+    './Component/Navigation/Navigation' /* webpackChunkName: "Navigation" */
+  ),
+);
+const HomeView = lazy(() =>
+  import('./View/HomeView/HomeView' /* webpackChunkName: "HomeView" */),
+);
+const FilmsView = lazy(() =>
+  import('./View/FilmsView/FilmsView' /* webpackChunkName: "FilmsView" */),
+);
+const FilmDetail = lazy(() =>
+  import('./View/FilmDetail/FilmDetail' /* webpackChunkName: "FilmDetail" */),
+);
+const NotFoundView = lazy(
+  () =>
+    import(
+      './View/NotFoundView/NotFoundView'
+    ) /* webpackChunkName: "NotFoundView" */,
+);
 
 export const App = () => {
   const history = useHistory();
@@ -17,18 +33,20 @@ export const App = () => {
 
   return (
     <div className={s.Container}>
-      <Navigation />
-      <Switch>
-        <Route exact path="/" component={HomeView} />
-        <Route exact path="/films">
-          <FilmsView />
-        </Route>
-        <Route path="/:filmId">
-          <FilmDetail onClick={onBtnClick} />
-        </Route>
+      <Suspense fallback={<h1>LOADER</h1>}>
+        <Navigation />
+        <Switch>
+          <Route exact path="/" component={HomeView} />
+          <Route exact path="/films">
+            <FilmsView />
+          </Route>
+          <Route path="/:filmId">
+            <FilmDetail onClick={onBtnClick} />
+          </Route>
 
-        <Route component={NotFoundView} />
-      </Switch>
+          <Route component={NotFoundView} />
+        </Switch>
+      </Suspense>
     </div>
   );
 };

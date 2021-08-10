@@ -7,7 +7,7 @@ import { CastView } from '../CastView/CastView';
 import { ReviewView } from '../ReviewView/ReviewView';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
 
-export const FilmDetail = ({ onClick }) => {
+const FilmDetail = ({ onClick }) => {
   const match = useRouteMatch();
   const params = useParams();
   const [film, setFilm] = useState(null);
@@ -92,3 +92,5 @@ export const FilmDetail = ({ onClick }) => {
     </>
   );
 };
+
+export default FilmDetail;

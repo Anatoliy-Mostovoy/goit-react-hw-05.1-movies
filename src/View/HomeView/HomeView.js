@@ -4,7 +4,7 @@ import axios from 'axios';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
 import s from './HomeView.module.css';
 
-export const HomeView = () => {
+const HomeView = () => {
   const [films, setFilms] = useState(null);
   const [loader, setLoader] = useState(false);
   const match = useRouteMatch();
@@ -43,3 +43,5 @@ export const HomeView = () => {
     </div>
   );
 };
+
+export default HomeView;
