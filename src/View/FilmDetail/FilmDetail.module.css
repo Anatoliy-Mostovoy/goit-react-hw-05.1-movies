@@ -56,3 +56,21 @@ img {
 .FilmInfoMark {
   color: tomato;
 }
+
+.FilmDetailBtn {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: larger;
+  margin: 0px 0px 10px 10px;
+  color: whitesmoke;
+  text-decoration: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  background-color: grey;
+}
+
+.FilmDetailBtn:hover {
+  background-color: tomato;
+  color: grey;
+}
