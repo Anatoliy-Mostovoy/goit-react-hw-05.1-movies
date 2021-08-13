@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import axios from 'axios';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
 import s from './HomeView.module.css';
+import { homeView } from '../../api/api';
 
 const HomeView = () => {
   const [films, setFilms] = useState(null);
@@ -15,12 +15,14 @@ const HomeView = () => {
 
   const fetcher = async () => {
     setLoader(true);
-    const response = await axios.get(
-      'https://api.themoviedb.org/3/trending/all/day?api_key=f4d5ed62044715aa9c5e4de0663d29b2',
-    );
-    setFilms(response.data.results);
-    setLoader(false);
-    return response;
+    try {
+      const response = await homeView();
+      setFilms(response.data.results);
+      setLoader(false);
+    } catch (error) {
+      console.log(error.response);
+      setLoader(false);
+    }
   };
 
   return (

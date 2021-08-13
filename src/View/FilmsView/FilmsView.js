@@ -1,13 +1,15 @@
 /* eslint-disable no-lone-blocks */
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { CustomLoader } from '../../helpers/customLoader/customLoader';
 import InputForm from '../../Component/InputForm/InputForm';
-import axios from 'axios';
 import s from './FilmsView.module.css';
+import { filmViewQuery } from '../../api/api';
 
 const FilmsView = () => {
   const [query, setQuery] = useState('');
   const [filmsSearch, setFilmsSearch] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const location = useLocation();
 
@@ -17,12 +19,15 @@ const FilmsView = () => {
 
   useEffect(() => {
     const fetcher = async () => {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=f4d5ed62044715aa9c5e4de0663d29b2&query=${query}`,
-      );
-
-      setFilmsSearch(response.data.results);
-      return response;
+      setLoader(true);
+      try {
+        const response = await filmViewQuery(query);
+        setFilmsSearch(response.data.results);
+        setLoader(false);
+      } catch (error) {
+        console.log(error.response);
+        setLoader(false);
+      }
     };
     {
       query && fetcher();
@@ -33,6 +38,7 @@ const FilmsView = () => {
     <>
       <InputForm onSubmit={oSubmitForm} />
       <div>
+        {loader && <CustomLoader />}
         <ul className={s.Films}>
           {filmsSearch.map(film => {
             return (

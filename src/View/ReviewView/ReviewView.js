@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import s from './ReviewView.module.css';
-import axios from 'axios';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
+import { reviewView } from '../../api/api';
 
 const ReviewView = () => {
   const [reviews, setReviews] = useState(null);
@@ -12,13 +12,14 @@ const ReviewView = () => {
   useEffect(() => {
     const fetcher = async () => {
       setLoader(true);
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${params.filmId}/reviews?api_key=f4d5ed62044715aa9c5e4de0663d29b2&language=en-US&page=1`,
-      );
-
-      setReviews(response.data.results);
-      setLoader(false);
-      return response;
+      try {
+        const response = await reviewView(params.filmId);
+        setReviews(response.data.results);
+        setLoader(false);
+      } catch (error) {
+        console.log(error.response);
+        setLoader(false);
+      }
     };
     fetcher();
   }, [params.filmId]);

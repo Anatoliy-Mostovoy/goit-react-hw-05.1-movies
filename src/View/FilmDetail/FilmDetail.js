@@ -1,5 +1,4 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
-import axios from 'axios';
 import {
   NavLink,
   useRouteMatch,
@@ -10,6 +9,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import s from './FilmDetail.module.css';
+import { filmDetail } from '../../api/api';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
 
 const CastView = lazy(() =>
@@ -30,12 +30,14 @@ const FilmDetail = ({ onClick }) => {
   useEffect(() => {
     const fetcher = async () => {
       setLoader(true);
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${params.filmId}?api_key=f4d5ed62044715aa9c5e4de0663d29b2&language=en-US`,
-      );
-      setLoader(false);
-      setFilm(response.data);
-      return response;
+      try {
+        const response = await filmDetail(params.filmId);
+        setLoader(false);
+        setFilm(response.data);
+      } catch (error) {
+        console.log(error.response);
+        setLoader(false);
+      }
     };
     fetcher();
   }, [params.filmId]);

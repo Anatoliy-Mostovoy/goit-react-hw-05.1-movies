@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import s from './CastView.module.css';
-import axios from 'axios';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
+import { castView } from '../../api/api';
 
 const CastView = () => {
   const params = useParams();
@@ -13,12 +13,14 @@ const CastView = () => {
   useEffect(() => {
     const fetcher = async () => {
       setLoader(true);
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${params.filmId}/credits?api_key=f4d5ed62044715aa9c5e4de0663d29b2&language=en-US`,
-      );
-      setCasts(response.data.cast);
-      setLoader(false);
-      return response;
+      try {
+        const response = await castView(params.filmId);
+        setCasts(response.data.cast);
+        setLoader(false);
+      } catch (error) {
+        console.log(error.response);
+        setLoader(false);
+      }
     };
     fetcher();
   }, [params.filmId]);
