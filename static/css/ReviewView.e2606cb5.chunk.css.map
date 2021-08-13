@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/View/ReviewView/ReviewView.module.css"],"names":[],"mappings":"AAAA,+BACE,iBACF,CACA,8BACE,kBACF,CAEA,mCACE,YACF","file":"ReviewView.e2606cb5.chunk.css","sourcesContent":[".ReviewTitle {\n  margin-bottom: 5px;\n}\n.ReviewText {\n  margin-bottom: 10px;\n}\n\n.ReviewTitleText {\n  color: tomato;\n}\n"]}
