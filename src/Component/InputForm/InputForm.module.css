@@ -1,0 +1,33 @@
+.Input {
+  box-sizing: border-box;
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid tomato;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: inherit;
+  color: tomato;
+}
+.Input:focus {
+  border: 2px solid tomato;
+  border-radius: 10px;
+  outline: none;
+}
+
+.InputButton {
+  margin: 10px;
+  /* font-size: larger; */
+  color: whitesmoke;
+  text-decoration: none;
+  padding: 12px 30px;
+  border: 1px solid tomato;
+  border-radius: 5px;
+  background-color: tomato;
+  cursor: pointer;
+}
+.InputButton:hover {
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  transform: scale(1.1);
+}

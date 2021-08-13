@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import s from './App.module.css';
 
 const Navigation = lazy(() =>
@@ -24,27 +24,23 @@ const NotFoundView = lazy(
 );
 
 export const App = () => {
-  const history = useHistory();
-  const match = useRouteMatch();
-
-  const onBtnClick = event => {
-    history.push(`${match.url}`);
-  };
-
   return (
     <div className={s.Container}>
       <Suspense fallback={<h1>LOADER</h1>}>
         <Navigation />
         <Switch>
-          <Route exact path="/" component={HomeView} />
+          <Route exact path="/">
+            <HomeView />
+          </Route>
           <Route exact path="/films">
             <FilmsView />
           </Route>
           <Route path="/:filmId">
-            <FilmDetail onClick={onBtnClick} />
+            <FilmDetail />
           </Route>
-
-          <Route component={NotFoundView} />
+          <Route>
+            <NotFoundView />
+          </Route>
         </Switch>
       </Suspense>
     </div>

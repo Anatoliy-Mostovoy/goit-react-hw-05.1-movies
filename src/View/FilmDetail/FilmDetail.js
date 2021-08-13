@@ -1,17 +1,31 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import axios from 'axios';
-import { NavLink, useRouteMatch, Route, Switch } from 'react-router-dom';
+import {
+  NavLink,
+  useRouteMatch,
+  useParams,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import s from './FilmDetail.module.css';
-import { CastView } from '../CastView/CastView';
-import { ReviewView } from '../ReviewView/ReviewView';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
+
+const CastView = lazy(() =>
+  import('../CastView/CastView' /* webpackChunkName: "CastView" */),
+);
+const ReviewView = lazy(() =>
+  import('../ReviewView/ReviewView' /* webpackChunkName: "ReviewView" */),
+);
 
 const FilmDetail = ({ onClick }) => {
   const match = useRouteMatch();
   const params = useParams();
   const [film, setFilm] = useState(null);
   const [loader, setLoader] = useState(false);
+  const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     const fetcher = async () => {
@@ -26,12 +40,20 @@ const FilmDetail = ({ onClick }) => {
     fetcher();
   }, [params.filmId]);
 
+  const onBtnClick = event => {
+    history.push(location?.state?.from ?? '/');
+  };
+
   return (
     <>
       {loader && <CustomLoader />}
       {film && (
         <div>
-          <button className={s.FilmDetailBtn} type="button" onClick={onClick}>
+          <button
+            className={s.FilmDetailBtn}
+            type="button"
+            onClick={onBtnClick}
+          >
             Back
           </button>
           <div className={s.FilmCard}>
@@ -81,12 +103,14 @@ const FilmDetail = ({ onClick }) => {
               Review
             </NavLink>
           </div>
-          <Switch>
-            <Route path={`${match.path}/cast`}>{film && <CastView />}</Route>
-            <Route path={`${match.path}/review`}>
-              {film && <ReviewView />}
-            </Route>
-          </Switch>
+          <Suspense fallback={<h1>LOADING...</h1>}>
+            <Switch>
+              <Route path={`${match.path}/cast`}>{film && <CastView />}</Route>
+              <Route path={`${match.path}/review`}>
+                {film && <ReviewView />}
+              </Route>
+            </Switch>
+          </Suspense>
         </div>
       )}
     </>

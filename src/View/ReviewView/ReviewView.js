@@ -4,7 +4,7 @@ import s from './ReviewView.module.css';
 import axios from 'axios';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
 
-export const ReviewView = () => {
+const ReviewView = () => {
   const [reviews, setReviews] = useState(null);
   const params = useParams();
   const [loader, setLoader] = useState(false);
@@ -46,3 +46,5 @@ export const ReviewView = () => {
     </div>
   );
 };
+
+export default ReviewView;

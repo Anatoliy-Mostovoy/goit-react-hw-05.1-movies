@@ -4,7 +4,7 @@ import s from './CastView.module.css';
 import axios from 'axios';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
 
-export const CastView = () => {
+const CastView = () => {
   const params = useParams();
 
   const [casts, setCasts] = useState(null);
@@ -53,3 +53,5 @@ export const CastView = () => {
     </div>
   );
 };
+
+export default CastView;
