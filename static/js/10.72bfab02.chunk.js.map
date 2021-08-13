@@ -1,0 +1,1 @@
+{"version":3,"sources":["View/NotFoundView/NotFoundView.js"],"names":["NotFoundView"],"mappings":"gKAIeA,UAJM,WACnB,OAAO","file":"static/js/10.72bfab02.chunk.js","sourcesContent":["const NotFoundView = () => {\n  return <h1>Film not found :((( </h1>;\n};\n\nexport default NotFoundView;\n"],"sourceRoot":""}
