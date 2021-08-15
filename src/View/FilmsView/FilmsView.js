@@ -1,6 +1,6 @@
 /* eslint-disable no-lone-blocks */
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { CustomLoader } from '../../helpers/customLoader/customLoader';
 import InputForm from '../../Component/InputForm/InputForm';
 import s from './FilmsView.module.css';
@@ -12,10 +12,35 @@ const FilmsView = () => {
   const [loader, setLoader] = useState(false);
 
   const location = useLocation();
+  const history = useHistory();
 
   const oSubmitForm = data => {
     setQuery(data);
+    history.push({ ...location, search: `by=${data}` });
+    console.log(location);
+    console.log(history);
   };
+
+  const currentValue = new URLSearchParams(location.search).get('by');
+  console.log(currentValue);
+
+  useEffect(() => {
+    if (!currentValue) {
+      return;
+    }
+    const fetcher = async () => {
+      setLoader(true);
+      try {
+        const response = await filmViewQuery(currentValue);
+        setFilmsSearch(response.data.results);
+        setLoader(false);
+      } catch (error) {
+        console.log(error.response);
+        setLoader(false);
+      }
+    };
+    fetcher();
+  }, []);
 
   useEffect(() => {
     const fetcher = async () => {
