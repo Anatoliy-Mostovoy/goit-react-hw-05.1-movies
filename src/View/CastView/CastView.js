@@ -24,7 +24,7 @@ const CastView = () => {
     };
     fetcher();
   }, [params.filmId]);
-  console.log(casts);
+
   return (
     <div className={s.CastContainer}>
       {loader && <CustomLoader />}
