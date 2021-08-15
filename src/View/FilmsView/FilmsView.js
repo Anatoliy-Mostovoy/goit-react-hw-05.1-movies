@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-lone-blocks */
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
@@ -17,12 +18,9 @@ const FilmsView = () => {
   const oSubmitForm = data => {
     setQuery(data);
     history.push({ ...location, search: `by=${data}` });
-    console.log(location);
-    console.log(history);
   };
 
   const currentValue = new URLSearchParams(location.search).get('by');
-  console.log(currentValue);
 
   useEffect(() => {
     if (!currentValue) {

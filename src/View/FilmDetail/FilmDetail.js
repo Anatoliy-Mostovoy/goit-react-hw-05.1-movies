@@ -45,7 +45,7 @@ const FilmDetail = ({ onClick }) => {
   const onBtnClick = event => {
     history.push(location?.state?.from ?? '/');
   };
-
+  console.log(film);
   return (
     <>
       {loader && <CustomLoader />}
